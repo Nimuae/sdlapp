@@ -35,9 +35,35 @@ void Wall::onNotify(char* message, GameObject *sender, NotifyFunction func) {
 	if (message == "Collision?") {
 		//check ball collision
 		Ball *ball = (Ball*) sender;
-		
-		Vector2D ballPos = Vector2D(ball->getPosition());
 
-		sender->notify("Collision.", this);
+		if (this->ellipseIntersect(ball)) {
+			sender->notify("Collision.", this);
+		}
 	}
+}
+
+std::vector<Vector2D> Wall::getVectors() {
+	std::vector<Vector2D> vectors = std::vector<Vector2D>();
+
+	Vector2D pointA = Vector2D(this->x, this->y);
+	Vector2D pointB = Vector2D(this->x + this->w, this->y);
+	Vector2D pointC = Vector2D(this->x, this->y + this->h);
+	Vector2D pointD = Vector2D(this->x + this->w, this->y + this->h);
+
+	vectors.push_back(pointB - pointA);
+	vectors.push_back(pointC - pointA);
+	vectors.push_back(pointC - pointD);
+	vectors.push_back(pointB - pointD);
+
+	return vectors;
+}
+
+bool Wall::ellipseIntersect(Ball *ball) {
+	SDL_Point pos = ball->getPosition();
+	Vector2D ballPos = Vector2D(ball->getPosition());
+	std::vector<Vector2D> vectors = this->getVectors();
+
+	SDL_bool includedInRect = SDL_PointInRect(&pos, this);
+
+	return includedInRect == SDL_TRUE;
 }

@@ -2,6 +2,7 @@
 
 Ball::Ball() {
 	this->position = Vector2D(100.f, 100.f);
+	this->direction = Vector2D(1, 1);
 	this->color = { 0xFF, 0, 0, 0xFF };
 }
 
@@ -16,14 +17,15 @@ void Ball::render(SDL_Renderer *renderer) {
 
 void Ball::update(double delta) {
 	const float speed = 50.f; //px per second
-	this->position.x += speed * delta;
-	this->position.y += speed * delta;
+	this->position.x += this->direction.x * speed * delta;
+	this->position.y += this->direction.y * speed * delta;
 
 	GameObject::notifyAll("Collision?", this);
 }
 
 void Ball::onNotify(char* message, GameObject *sender, NotifyFunction func) {
 	if (message == "Collision.") {
+		//TODO: implement deflection physics
 	}
 }
 

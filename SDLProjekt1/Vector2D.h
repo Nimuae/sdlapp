@@ -1,11 +1,14 @@
 #include <math.h>
 #include <SDL.h>
 
+#define SQR(x) x*x
+
 #pragma once
 class Vector2D {
 public:
 	Vector2D();
 	Vector2D(double x, double y);
+	Vector2D(Vector2D a, Vector2D b);
 	Vector2D(SDL_Point point);
 	~Vector2D();
 
@@ -21,10 +24,13 @@ public:
 	Vector2D operator+ (Vector2D v);
 	Vector2D operator- (Vector2D v);
 	Vector2D operator*(double s);
+	Vector2D operator*(Vector2D v);
+	Vector2D operator*=(double s);
 	bool operator==(Vector2D v);
 	bool operator!=(Vector2D v);
 
 	double dot(Vector2D v);
+	double length();
 };
 
 #pragma once

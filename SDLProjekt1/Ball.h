@@ -25,6 +25,7 @@ private:
 
 	SDL_Texture *paintTexture = NULL;
 	Vector2D position;
+	Vector2D direction;
 	SDL_Color color;
 	SDL_Point size;
 };

@@ -4,6 +4,10 @@ Vector2D::Vector2D() {
 	this->x = 0;
 	this->y = 0;
 }
+Vector2D::Vector2D(Vector2D a, Vector2D b) {
+	this->x = b.x - a.x;
+	this->y = b.y - a.y;
+}
 Vector2D::Vector2D(double x, double y) {
 	this->x = x;
 	this->y = y;
@@ -18,7 +22,7 @@ Vector2D::~Vector2D() {}
 double Vector2D::distance(Vector2D v) {
 	double a = v.x - this->x;
 	double b = v.y - this->y;
-	return sqrt(a*a + b*b);
+	return sqrt(SQR(a) + SQR(b));
 }
 
 Vector2D Vector2D::getOrtho() {
@@ -37,6 +41,14 @@ Vector2D Vector2D::operator* (double s) {
 	return Vector2D(this->x * s, this->y * s);
 }
 
+Vector2D Vector2D::operator*(Vector2D v) {
+	return Vector2D(this->x * v.x, this->y * v.y);
+}
+
+Vector2D Vector2D::operator*=(double s) {
+	return Vector2D((*this) * s);
+}
+
 bool Vector2D::operator==(Vector2D v) {
 	return this->x == v.x && this->y == v.y;
 }
@@ -47,6 +59,10 @@ bool Vector2D::operator!=(Vector2D v) {
 
 double Vector2D::dot(Vector2D v) {
 	return this->x * v.x + this->y * v.y;
+}
+
+double Vector2D::length() {
+	return sqrt(SQR(this->x) + SQR(this->y));
 }
 
 Line2D::Line2D() : Line2D(Vector2D(0, 0), Vector2D(1, 1)) {}

@@ -62,6 +62,17 @@ TEST_CASE("Vector Tests") {
 		v1 = Vector2D(-5, 10);
 		REQUIRE(v1.getOrtho() == Vector2D(-10, -5));
 	}
+
+	SECTION("Vector Length") {
+		Vector2D v1 = Vector2D(0, 1);
+		REQUIRE(v1.length() == 1);
+
+		v1 = Vector2D(1, 1);
+		REQUIRE(v1.length() == sqrt(2));
+
+		v1 = Vector2D(2, 0);
+		REQUIRE(v1.length() == 2);
+	}
 }
 
 TEST_CASE("Line Tests") {

@@ -19,10 +19,13 @@ public:
 	void update(double delta);
 
 	void onNotify(char* message, GameObject *sender, NotifyFunction func = NULL);
+	std::vector<Vector2D> getVectors();
 
 private:
 	SDL_Rect rect;
 
 	Vector2D direction;
+
+	bool ellipseIntersect(Ball *ball);
 };
 
