@@ -26,7 +26,7 @@ void GameObject::notify(char* message, GameObject *sender) {
 }
 
 void GameObject::notifyAll(char* message, GameObject *sender, NotifyFunction func) {
-	for (std::vector<GameObject*>::iterator it = GameObject::OBJECTS.begin(); it != GameObject::OBJECTS.end();) {
+	for (std::vector<GameObject*>::iterator it = GameObject::OBJECTS.begin(); it != GameObject::OBJECTS.end(); it++) {
 		(*it)->onNotify(message, sender, func);
 	}
 }
@@ -43,7 +43,7 @@ void GameObject::addDelegate(GameObject *object) {
 
 bool GameObject::hasDelegate(GameObject *object) {
 	if (object != NULL) {
-		for (std::vector<GameObject*>::iterator it = GameObject::OBJECTS.begin(); it != GameObject::OBJECTS.end();) {
+		for (std::vector<GameObject*>::iterator it = GameObject::OBJECTS.begin(); it != GameObject::OBJECTS.end(); it++) {
 			if ((*it)->id == object->id) {
 				return true;
 			}

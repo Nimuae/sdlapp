@@ -15,4 +15,29 @@ public:
 
 	double distance(Vector2D x);
 	double x, y;
+
+	Vector2D getOrtho();
+
+	Vector2D operator+ (Vector2D v);
+	Vector2D operator- (Vector2D v);
+	Vector2D operator*(double s);
+};
+
+#pragma once
+class Line2D {
+public:
+	Line2D();
+	Line2D(Vector2D startPoint, Vector2D direction);
+	friend class Vector2D;
+
+	double distanceToPoint(Vector2D point);
+	Line2D getOrthoLine(Vector2D point);
+	Vector2D getIntersectPoint(Line2D line);
+
+	double getPointFactor(Vector2D point);
+	Vector2D getPointFromFactor(double factor);
+
+private:
+	Vector2D startPoint;
+	Vector2D direction;
 };

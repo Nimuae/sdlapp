@@ -30,8 +30,7 @@ void Wall::render(SDL_Renderer *renderer) {
 
 void Wall::update(double delta) {
 }
-
-
+ 
 void Wall::onNotify(char* message, GameObject *sender, NotifyFunction func) {
 	if (message == "Collision?") {
 		//check ball collision
