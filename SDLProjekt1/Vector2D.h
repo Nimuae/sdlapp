@@ -21,6 +21,10 @@ public:
 	Vector2D operator+ (Vector2D v);
 	Vector2D operator- (Vector2D v);
 	Vector2D operator*(double s);
+	bool operator==(Vector2D v);
+	bool operator!=(Vector2D v);
+
+	double dot(Vector2D v);
 };
 
 #pragma once

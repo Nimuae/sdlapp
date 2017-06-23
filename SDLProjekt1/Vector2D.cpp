@@ -37,6 +37,18 @@ Vector2D Vector2D::operator* (double s) {
 	return Vector2D(this->x * s, this->y * s);
 }
 
+bool Vector2D::operator==(Vector2D v) {
+	return this->x == v.x && this->y == v.y;
+}
+
+bool Vector2D::operator!=(Vector2D v) {
+	return this->x != v.x || this->y != v.y;
+}
+
+double Vector2D::dot(Vector2D v) {
+	return this->x * v.x + this->y * v.y;
+}
+
 Line2D::Line2D() : Line2D(Vector2D(0, 0), Vector2D(1, 1)) {}
 
 Line2D::Line2D(Vector2D startPoint, Vector2D direction) {
@@ -45,7 +57,10 @@ Line2D::Line2D(Vector2D startPoint, Vector2D direction) {
 }
 
 double Line2D::distanceToPoint(Vector2D point) {
-	return 0;
+	Line2D orthoLine = this->getOrthoLine(point);
+	Vector2D intersectPoint = this->getIntersectPoint(orthoLine);
+
+	return intersectPoint.distance(point);
 }
 
 Line2D Line2D::getOrthoLine(Vector2D point) {
@@ -57,9 +72,13 @@ Vector2D Line2D::getIntersectPoint(Line2D line) {
 		return Vector2D();
 	}
 
-	double factor = (this->startPoint.x - line.startPoint.x) / (line.direction.x - this->direction.x);
+	double factorX = (this->startPoint.x - line.startPoint.x) / (line.direction.x - this->direction.x);
+	double factorY = (this->startPoint.y - line.startPoint.y) / (line.direction.y - this->direction.y);
 
-	return this->getPointFromFactor(factor);
+	if (factorX == 0) {
+		return this->getPointFromFactor(factorY);
+	}
+	return this->getPointFromFactor(factorX);
 }
 
 double Line2D::getPointFactor(Vector2D point) {
